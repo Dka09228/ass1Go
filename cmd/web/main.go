@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+// hello
 type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
