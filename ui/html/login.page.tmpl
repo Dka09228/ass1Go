@@ -1,0 +1,57 @@
+{{template "base" .}}
+{{define "title"}}Login{{end}}
+{{define "main"}}
+<style>
+  .login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+        position: relative;
+        top: 70%;
+
+  }
+
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .login-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    background-color: #34495E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="login-container">
+  <h2>Login</h2>
+  <form class="login-form" action='/user/login' method='POST' novalidate>
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+    {{with .Form}}
+      {{with .Errors.Get "generic"}}
+        <div class='error'>{{.}}</div>
+      {{end}}
+      <div>
+        <label>Email:</label>
+        <input type='email' name='email' value='{{.Get "email"}}'>
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type='password' name='password'>
+      </div>
+      <div>
+        <input type='submit' value='Login'>
+      </div>
+    {{end}}
+  </form>
+</div>
+{{end}}

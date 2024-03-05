@@ -1,0 +1,46 @@
+{{template "base" .}}
+{{define "title"}}Snippet #{{.Snippet.ID}}{{end}}
+{{define "main"}}
+{{with .Snippet}}
+<div class='snippet'>
+    <div class='metadata'>
+        <strong>{{.Title}}</strong> <span>#{{.ID}}</span>
+    </div>
+
+    <pre><code>{{.Content}}</code></pre>
+    <div class='metadata'>
+        <!-- Use the new template function here -->
+        <time>Created: {{humanDate .Created}}</time>
+        <time>Expires: {{humanDate .Expires}}</time>
+    </div>
+</div>
+
+<!-- Comments Section -->
+<div class="comments-section">
+    <h3>Comments</h3>
+    {{if .Comments}}
+        <ul>
+            {{range .Comments}}
+                <li>
+                    <strong>{{.UserName}}</strong>:
+                    {{.Text}}
+                </li>
+            {{end}}
+        </ul>
+    {{else}}
+        <p>No comments yet.</p>
+    {{end}}
+
+    <form action="/comment/add" method="POST">
+        <input type="hidden" name="snippet_id" value="{{.ID}}">
+        <div>
+            <label for="comment">Add Comment:</label>
+            <textarea name="comment" id="comment" rows="3" cols="40"></textarea>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{{end}}
+{{end}}

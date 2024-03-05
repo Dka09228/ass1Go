@@ -1,0 +1,67 @@
+{{template "base" .}}
+{{define "title"}}Signup{{end}}
+{{define "main"}}
+<style>
+  .signup-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    top: 50%;
+  }
+
+  .signup-form input[type="text"],
+  .signup-form input[type="email"],
+  .signup-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .signup-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    background-color: #34495E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="signup-container">
+  <h2>Signup</h2>
+  <form class="signup-form" action='/user/signup' method='POST' novalidate>
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+    {{with .Form}}
+      <div>
+        <label>Name:</label>
+        {{with .Errors.Get "name"}}
+          <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='text' name='name' value='{{.Get "name"}}'>
+      </div>
+      <div>
+        <label>Email:</label>
+        {{with .Errors.Get "email"}}
+          <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='email' name='email' value='{{.Get "email"}}'>
+      </div>
+      <div>
+        <label>Password:</label>
+        {{with .Errors.Get "password"}}
+          <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='password' name='password'>
+      </div>
+      <div>
+        <input type='submit' value='Signup'>
+      </div>
+    {{end}}
+  </form>
+</div>
+{{end}}
