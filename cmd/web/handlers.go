@@ -52,13 +52,13 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		Comments: comments,
 	})
 }
-func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
+func (app *application) createClothesForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "create.page.tmpl", &templateData{
 		Form: forms.New(nil),
 	})
 }
 
-func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *application) createClothes(w http.ResponseWriter, r *http.Request) {
 
 	err := r.ParseForm()
 
@@ -67,7 +67,7 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	form := forms.New(r.PostForm)
-	form.Required("title", "content", "expires")
+	form.Required("title", "price", "expires")
 	form.MaxLength("title", 100)
 	form.PermittedValues("expires", "365", "7", "1")
 
@@ -76,12 +76,12 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := app.snippets.Insert(form.Get("title"), form.Get("content"), form.Get("expires"))
+	id, err := app.clothes.Insert(form.Get("title"), form.Get("price"), form.Get("expires"))
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-	app.session.Put(r, "flash", "Snippet successfully created!")
+	app.session.Put(r, "flash", "Clothing piece successfully created!")
 	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
 }
 func (app *application) signupUserForm(w http.ResponseWriter, r *http.Request) {

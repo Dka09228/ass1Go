@@ -14,7 +14,7 @@ var (
 type Clothes struct {
 	ID       int
 	Title    string
-	Price    int
+	Price    string
 	Created  time.Time
 	Expires  time.Time
 	Comments []*Comment

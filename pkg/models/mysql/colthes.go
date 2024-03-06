@@ -11,11 +11,11 @@ type CLothesModel struct {
 }
 
 // comment
-func (m *CLothesModel) Insert(title, content, expires string) (int, error) {
+func (m *CLothesModel) Insert(title, price, expires string) (int, error) {
 	stmt := `INSERT INTO snippets (title, content, created, expires)
 	VALUES(?, ?, UTC_TIMESTAMP(), DATE_ADD(UTC_TIMESTAMP(), INTERVAL ? DAY))`
 
-	result, err := m.DB.Exec(stmt, title, content, expires)
+	result, err := m.DB.Exec(stmt, title, price, expires)
 	if err != nil {
 		return 0, err
 	}
@@ -45,7 +45,7 @@ func (m *CLothesModel) Get(id int) (*models.Clothes, error) {
 }
 
 func (m *CLothesModel) Latest() ([]*models.Clothes, error) {
-	stmt := `SELECT id, title, content, created, expires FROM snippets WHERE expires > UTC_TIMESTAMP() ORDER BY id ASC LIMIT 10`
+	stmt := `SELECT id, title, price, created, expires FROM snippets WHERE expires > UTC_TIMESTAMP() ORDER BY id ASC LIMIT 10`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
 		return nil, err
