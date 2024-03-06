@@ -6,12 +6,12 @@ import (
 	"errors"
 )
 
-type CLothesModel struct {
+type ClothesModel struct {
 	DB *sql.DB
 }
 
 // comment
-func (m *CLothesModel) Insert(title, price, expires string) (int, error) {
+func (m *ClothesModel) Insert(title, price, expires string) (int, error) {
 	stmt := `INSERT INTO snippets (title, content, created, expires)
 	VALUES(?, ?, UTC_TIMESTAMP(), DATE_ADD(UTC_TIMESTAMP(), INTERVAL ? DAY))`
 
@@ -28,7 +28,7 @@ func (m *CLothesModel) Insert(title, price, expires string) (int, error) {
 	return int(id), nil
 }
 
-func (m *CLothesModel) Get(id int) (*models.Clothes, error) {
+func (m *ClothesModel) Get(id int) (*models.Clothes, error) {
 	stmt := `SELECT id, title, price, created, expires FROM snippets
 	WHERE expires > UTC_TIMESTAMP() AND id = ?`
 	row := m.DB.QueryRow(stmt, id)
@@ -44,7 +44,7 @@ func (m *CLothesModel) Get(id int) (*models.Clothes, error) {
 	return s, nil
 }
 
-func (m *CLothesModel) Latest() ([]*models.Clothes, error) {
+func (m *ClothesModel) Latest() ([]*models.Clothes, error) {
 	stmt := `SELECT id, title, price, created, expires FROM snippets WHERE expires > UTC_TIMESTAMP() ORDER BY id ASC LIMIT 10`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {

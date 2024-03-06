@@ -25,7 +25,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *application) showClothes(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
@@ -76,7 +76,7 @@ func (app *application) createClothes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := app.clothes.Insert(form.Get("title"), form.Get("price"), form.Get("expires"))
+	id, err := app.snippets.Insert(form.Get("title"), form.Get("price"), form.Get("expires"))
 	if err != nil {
 		app.serverError(w, err)
 		return
