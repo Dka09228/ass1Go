@@ -1,10 +1,10 @@
-# Clothing Store
+# CZB Clothing Store
 
-This is a simple cloth store web application built with GoLang and MySQL.
+This is a simple clothing store web application built with GoLang and MySQL.
 
 ## Description
 
-The cloth store allows users to view a collection of clothes along with their descriptions. Users can browse through the available clothes, view their descriptions, and write comments.
+The clothing store allows users to view a collection of clothes along with their descriptions. Users can browse through the available clothes, view their descriptions, and write comments.
 
 ## Features
 
