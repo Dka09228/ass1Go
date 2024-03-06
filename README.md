@@ -1,4 +1,4 @@
-# Cloth Store
+# Clothing Store
 
 This is a simple cloth store web application built with GoLang and MySQL.
 
