@@ -11,14 +11,15 @@ var (
 	ErrDuplicateEmail     = errors.New("models: duplicate email")
 )
 
-type Snippet struct {
+type Clothes struct {
 	ID       int
 	Title    string
-	Content  string
+	Price    int
 	Created  time.Time
 	Expires  time.Time
 	Comments []*Comment
 }
+
 type User struct {
 	ID             int
 	Name           string
